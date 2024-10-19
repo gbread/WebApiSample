@@ -43,5 +43,13 @@ namespace WebApiSample.BLL
         {
             await _productRepository.DeleteProductAsync(id);
         }
+
+        public async Task UpdateProductDescriptionAsync(UpdateProductDescriptionDto productDescriptionDto)
+        {
+            var product = await _productRepository.GetProductByIdAsync(productDescriptionDto.Id);
+            _mapper.Map(productDescriptionDto, product);
+
+            await _productRepository.UpdateProductAsync(product);
+        }
     }
 }

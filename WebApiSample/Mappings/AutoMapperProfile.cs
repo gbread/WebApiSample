@@ -8,6 +8,7 @@ namespace WebApiSample.Mappings
         public AutoMapperProfile()
         {
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, UpdateProductDescriptionDto>().ReverseMap();
         }
     }
 }

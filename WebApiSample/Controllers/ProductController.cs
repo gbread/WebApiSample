@@ -38,12 +38,12 @@ namespace WebApiSample.Controllers
             return CreatedAtAction(nameof(GetProduct), new { id = productDto.Id }, productDto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDto productDto)
+        [HttpPut("{id}/description")]
+        public async Task<IActionResult> UpdateProductDescription(int id, [FromBody] UpdateProductDescriptionDto productDescriptionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != productDto.Id) return BadRequest("Product ID mismatch");
-            await _productService.UpdateProductAsync(productDto);
+            if (id != productDescriptionDto.Id) return BadRequest("Product ID mismatch");
+            await _productService.UpdateProductDescriptionAsync(productDescriptionDto);
             return NoContent();
         }
 

@@ -9,5 +9,6 @@ namespace WebApiSample.BLL
         Task AddProductAsync(ProductDto productDto);
         Task UpdateProductAsync(ProductDto productDto);
         Task DeleteProductAsync(int id);
+        Task UpdateProductDescriptionAsync(UpdateProductDescriptionDto productDescriptionDto);
     }
 }
