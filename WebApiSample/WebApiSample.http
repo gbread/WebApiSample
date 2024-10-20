@@ -23,3 +23,19 @@ Accept: application/json
 }
 
 ###
+
+DELETE {{WebApiSample_HostAddress}}/api/Product/3
+Accept: application/json
+
+###
+
+PUT {{WebApiSample_HostAddress}}/api/Product/2/description
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 2,
+  "description": "Nový popis"
+}
+
+###
