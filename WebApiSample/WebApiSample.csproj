@@ -15,6 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
     <PackageReference Include="X.PagedList" Version="10.5.3" />
     <PackageReference Include="X.PagedList.EF" Version="10.5.3" />
   </ItemGroup>
