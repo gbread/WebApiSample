@@ -43,8 +43,15 @@ namespace WebApiSample.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (id != productDescriptionDto.Id) return BadRequest("Product ID mismatch");
-            await _productService.UpdateProductDescriptionAsync(productDescriptionDto);
-            return NoContent();
+            try
+            {
+                await _productService.UpdateProductDescriptionAsync(productDescriptionDto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{id}")]

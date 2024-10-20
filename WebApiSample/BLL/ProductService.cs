@@ -47,6 +47,10 @@ namespace WebApiSample.BLL
         public async Task UpdateProductDescriptionAsync(UpdateProductDescriptionDto productDescriptionDto)
         {
             var product = await _productRepository.GetProductByIdAsync(productDescriptionDto.Id);
+            if (product == null)
+            {
+                throw new KeyNotFoundException();
+            }
             _mapper.Map(productDescriptionDto, product);
 
             await _productRepository.UpdateProductAsync(product);
