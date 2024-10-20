@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApiSample.Models;
+using X.PagedList;
+using X.PagedList.EF;
+using X.PagedList.Extensions;
 
 namespace WebApiSample.DAL
 {
@@ -15,6 +18,11 @@ namespace WebApiSample.DAL
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _context.Products.ToListAsync();
+        }
+
+        public async Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize)
+        {
+            return await _context.Products.ToPagedListAsync(page, pageSize);
         }
 
         public async Task<Product?> GetProductByIdAsync(int id)
