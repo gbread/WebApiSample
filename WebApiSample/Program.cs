@@ -1,7 +1,10 @@
 
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
 using WebApiSample.BLL;
 using WebApiSample.DAL;
 using WebApiSample.Mappings;
@@ -19,10 +22,34 @@ namespace WebApiSample
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product API", Version = "v1" });
-                c.EnableAnnotations(); // To support annotations like SwaggerResponse
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API V1", Version = "v1" });
+                c.SwaggerDoc("v2", new OpenApiInfo { Title = "API V2", Version = "v2" });
+                
+                c.EnableAnnotations();
+
+                // Use versioning to filter endpoints
+                c.DocInclusionPredicate((version, apiDesc) =>
+                {
+                    if (!apiDesc.TryGetMethodInfo(out var methodInfo)) return false;
+
+                    var versions = methodInfo.DeclaringType?
+                        .GetCustomAttributes(true)
+                        .OfType<ApiVersionAttribute>()
+                        .SelectMany(attr => attr.Versions);
+
+                    return versions?.Any(v => $"v{v.MajorVersion}" == version) ?? false;
+                });
+
             });
 
             services.AddDbContext<AppDbContext>(options =>
@@ -40,7 +67,11 @@ namespace WebApiSample
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    c.SwaggerEndpoint("/swagger/v2/swagger.json", "API V2");
+                });
             }
 
             app.UseHttpsRedirection();

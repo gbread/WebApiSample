@@ -6,13 +6,14 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebApiSample.Controllers
 {
+    [ApiVersion("2.0")]
     [Route("api/v2/Product")]
     [ApiController]
-    public class ProductControllerV2 : Controller
+    public class Product2Controller : Controller
     {
         private readonly IProductServiceV2 _productService;
 
-        public ProductControllerV2(IProductServiceV2 productService)
+        public Product2Controller(IProductServiceV2 productService)
         {
             _productService = productService;
         }
