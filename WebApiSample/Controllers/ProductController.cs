@@ -44,7 +44,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, "Product not found")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
+            var product = await _mediator.Send(new GetProductQuery(id));
             if (product == null) return NotFound();
             return Ok(product);
         }

@@ -21,9 +21,9 @@ namespace WebApiSample.BLL
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
-        public async Task<ProductDto> GetProductByIdAsync(int id)
+        public async Task<ProductDto> GetProductByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
+            var product = await _productRepository.GetProductByIdAsync(id, cancellationToken);
             return _mapper.Map<ProductDto>(product);
         }
 
@@ -46,7 +46,7 @@ namespace WebApiSample.BLL
 
         public async Task UpdateProductDescriptionAsync(UpdateProductDescriptionDto productDescriptionDto)
         {
-            var product = await _productRepository.GetProductByIdAsync(productDescriptionDto.Id);
+            var product = await _productRepository.GetProductByIdAsync(productDescriptionDto.Id, default);
             if (product == null)
             {
                 throw new KeyNotFoundException();

@@ -48,7 +48,7 @@ namespace WebApiSample.Tests
 
             // Act
             await _productRepository.AddProductAsync(product);
-            var result = await _productRepository.GetProductByIdAsync(3);
+            var result = await _productRepository.GetProductByIdAsync(3, default);
 
             // Assert
             result.Should().NotBeNull();
@@ -77,7 +77,7 @@ namespace WebApiSample.Tests
 
             // Act
             await _productRepository.DeleteProductAsync(5);
-            var result = await _productRepository.GetProductByIdAsync(5);
+            var result = await _productRepository.GetProductByIdAsync(5, default);
 
             // Assert
             result.Should().BeNull();

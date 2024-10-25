@@ -7,7 +7,7 @@ namespace WebApiSample.DAL
     {
         Task<IEnumerable<Product>> GetProductsAsync(CancellationToken cancellationToken);
         Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize);
-        Task<Product?> GetProductByIdAsync(int id);
+        Task<Product?> GetProductByIdAsync(int id, CancellationToken cancellationToken);
         Task AddProductAsync(Product product);
         Task UpdateProductAsync(Product product);
         Task DeleteProductAsync(int id);
