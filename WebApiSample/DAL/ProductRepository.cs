@@ -25,7 +25,7 @@ namespace WebApiSample.DAL
             return await _context.Products.ToPagedListAsync(page, pageSize);
         }
 
-        public async Task<Product?> GetProductByIdAsync(int id)
+        public async Task<Product?> GetProductByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.Products.FindAsync(id);
         }

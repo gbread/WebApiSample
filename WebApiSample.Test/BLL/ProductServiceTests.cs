@@ -60,7 +60,7 @@ namespace WebApiSample.Test.BLL
             // Arrange
             var product = new Product { Id = 1, Name = "Product 1", Price = 5, Description = "Old Description", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s" };
             _productRepositoryMock
-                .Setup(repo => repo.GetProductByIdAsync(It.IsAny<int>()))
+                .Setup(repo => repo.GetProductByIdAsync(It.IsAny<int>(), default))
                 .ReturnsAsync(product);
 
             var updateDto = new UpdateProductDescriptionDto { Id = 1 ,Description = "New Description" };
