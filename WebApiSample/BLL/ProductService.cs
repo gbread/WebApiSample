@@ -15,9 +15,9 @@ namespace WebApiSample.BLL
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetProductsAsync();
+            var products = await _productRepository.GetProductsAsync(cancellationToken);
             return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 

@@ -15,9 +15,9 @@ namespace WebApiSample.DAL
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync(CancellationToken cancellationToken)
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products.ToListAsync(cancellationToken);
         }
 
         public async Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize)
