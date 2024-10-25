@@ -26,7 +26,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError, "Internal server error")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            var products = await _productService.GetProductsAsync();
+            var products = await _productService.GetProductsAsync(HttpContext.RequestAborted);
             return Ok(products);
         }
 

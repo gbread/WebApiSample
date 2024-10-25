@@ -34,7 +34,7 @@ namespace WebApiSample.Tests
             await _context.SaveChangesAsync();
 
             // Act
-            var products = await _productRepository.GetProductsAsync();
+            var products = await _productRepository.GetProductsAsync(default);
 
             // Assert
             products.Should().HaveCount(2);

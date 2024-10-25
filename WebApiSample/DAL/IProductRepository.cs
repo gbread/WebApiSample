@@ -5,7 +5,7 @@ namespace WebApiSample.DAL
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<IEnumerable<Product>> GetProductsAsync(CancellationToken cancellationToken);
         Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize);
         Task<Product?> GetProductByIdAsync(int id);
         Task AddProductAsync(Product product);

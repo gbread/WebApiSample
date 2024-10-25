@@ -43,11 +43,11 @@ namespace WebApiSample.Test.BLL
             };
 
             _productRepositoryMock
-                .Setup(repo => repo.GetProductsAsync())
+                .Setup(repo => repo.GetProductsAsync(default))
                 .ReturnsAsync(products);
 
             // Act
-            var result = await _productService.GetProductsAsync();
+            var result = await _productService.GetProductsAsync(default);
 
             // Assert
             result.Should().HaveCount(2);
