@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using WebApiSample.BLL;
+using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.Mappings;
 
@@ -56,6 +58,7 @@ namespace WebApiSample
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllProductsQuery>());
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();

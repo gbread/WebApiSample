@@ -2,6 +2,8 @@
 using WebApiSample.BLL;
 using WebApiSample.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using MediatR;
+using WebApiSample.BLL.Products.Queries;
 
 namespace WebApiSample.Controllers
 {
@@ -10,11 +12,13 @@ namespace WebApiSample.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IMediator _mediator;
         private readonly IProductService _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMediator mediator)
         {
             _productService = productService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -26,7 +30,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError, "Internal server error")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            var products = await _productService.GetProductsAsync(HttpContext.RequestAborted);
+            var products = await _mediator.Send(new GetAllProductsQuery(), HttpContext.RequestAborted);
             return Ok(products);
         }
 
