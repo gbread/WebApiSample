@@ -20,32 +20,32 @@ namespace WebApiSample.DAL
             return await _context.Products.ToListAsync(cancellationToken);
         }
 
-        public async Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize)
+        public async Task<IPagedList<Product>> GetProductsAsync(int page, int pageSize, CancellationToken cancellationToken)
         {
-            return await _context.Products.ToPagedListAsync(page, pageSize);
+            return await _context.Products.ToPagedListAsync(page, pageSize, null, cancellationToken);
         }
 
         public async Task<Product?> GetProductByIdAsync(int id, CancellationToken cancellationToken)
         {
-            return await _context.Products.FindAsync(id);
+            return await _context.Products.FindAsync(id, cancellationToken);
         }
 
         public async Task AddProductAsync(Product product, CancellationToken cancellationToken)
         {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            await _context.Products.AddAsync(product, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product, CancellationToken cancellationToken)
         {
             _context.Entry(product).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
         {
             _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

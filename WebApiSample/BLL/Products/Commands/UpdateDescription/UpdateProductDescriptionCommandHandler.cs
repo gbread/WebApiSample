@@ -27,7 +27,7 @@ namespace WebApiSample.BLL.Products.Commands.Create
             }
             _mapper.Map(command, product);
 
-            await _productRepository.UpdateProductAsync(product);
+            await _productRepository.UpdateProductAsync(product, cancellationToken);
         }
     }
 }
