@@ -12,15 +12,15 @@ using WebApiSample.Mappings;
 using WebApiSample.Models;
 using X.PagedList;
 
-namespace WebApiSample.Test.BLL
+namespace WebApiSample.Test.BLL.Products
 {
-    public class ProductServiceV2Tests
+    public class GetPagedProductTests
     {
         private readonly Mock<IProductRepository> _productRepositoryMock;
         private readonly IProductServiceV2 _productService;
         private readonly IMapper _mapper;
 
-        public ProductServiceV2Tests()
+        public GetPagedProductTests()
         {
 
             var config = new MapperConfiguration(cfg =>
@@ -58,7 +58,7 @@ namespace WebApiSample.Test.BLL
             result.First().Should().BeEquivalentTo(new ProductDto { Id = 3, Name = "Product 3", Price = 30, Description = "Description 2", ImgUri = "https://pic.cz" });
         }
 
-        
+
     }
 
 }
