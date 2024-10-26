@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApiSample.BLL.Exceptions;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.BLL.Products.Queries.PagedProducts;
 using WebApiSample.DAL;
@@ -110,6 +111,46 @@ namespace WebApiSample.Test.BLL.Products
             result.PagedProducts.Items.Should().HaveCount(2);
             result.PagedProducts.Items.Should().Contain(p => p.Name == "Product 3");
             result.PagedProducts.Items.Should().Contain(p => p.Name == "Product 4");
+        }
+
+        [Fact]
+        public async Task GetPagedProducts_ShouldThrowException_WhenZeroPage()
+        {
+            // Act
+            var act = async () => await _getProductsHandler.Handle(new GetPagedProductsQuery { Page = 0, PageSize = 2 }, default);
+
+            // Assert
+            await act.Should().ThrowExactlyAsync<ModelValidationException>();
+        }
+
+        [Fact]
+        public async Task GetPagedProducts_ShouldThrowException_WhenNegativePage()
+        {
+            // Act
+            var act = async () => await _getProductsHandler.Handle(new GetPagedProductsQuery { Page = -3, PageSize = 2 }, default);
+
+            // Assert
+            await act.Should().ThrowExactlyAsync<ModelValidationException>();
+        }
+
+        [Fact]
+        public async Task GetPagedProducts_ShouldThrowException_WhenZeroPageSize()
+        {
+            // Act
+            var act = async () => await _getProductsHandler.Handle(new GetPagedProductsQuery { Page = 1, PageSize = 0 }, default);
+
+            // Assert
+            await act.Should().ThrowExactlyAsync<ModelValidationException>();
+        }
+
+        [Fact]
+        public async Task GetPagedProducts_ShouldThrowException_WhenNegativePageSize()
+        {
+            // Act
+            var act = async () => await _getProductsHandler.Handle(new GetPagedProductsQuery { Page = 1, PageSize = -2 }, default);
+
+            // Assert
+            await act.Should().ThrowExactlyAsync<ModelValidationException>();
         }
     }
 }
