@@ -5,11 +5,6 @@ Accept: application/json
 
 ###
 
-GET {{WebApiSample_HostAddress}}/api/Product
-Accept: application/json
-
-###
-
 GET {{WebApiSample_HostAddress}}/api/v2/Product?page=1&pageSize=2
 Accept: application/json
 
@@ -20,7 +15,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "id": 0,
   "name": "Další produkt",
   "price": 15,
   "imgUri": "https://media.gettyimages.com/id/1327018520/photo/a-capitol-fourth.jpg?s=2048x2048&w=gi&k=20&c=zC8cNQd8OSOTwhSnEfcrmhx5z5shWxy4fhZNuGmRfeE=",
@@ -34,7 +28,7 @@ Accept: application/json
 
 ###
 
-PUT {{WebApiSample_HostAddress}}/api/Product/2/description
+PUT {{WebApiSample_HostAddress}}/api/Product/description
 Content-Type: application/json
 Accept: application/json
 
