@@ -41,7 +41,12 @@ namespace WebApiSample.BLL
 
         public async Task DeleteProductAsync(int id)
         {
-            await _productRepository.DeleteProductAsync(id);
+            var product = await _productRepository.GetProductByIdAsync(id, default);
+            if (product == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            await _productRepository.DeleteProductAsync(product, default);
         }
 
         public async Task UpdateProductDescriptionAsync(UpdateProductDescriptionDto productDescriptionDto)

@@ -86,7 +86,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, "Product not found")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            await _mediator.Send(new DeleteProductCommand(id));
             return NoContent();
         }
     }

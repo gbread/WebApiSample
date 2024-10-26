@@ -10,6 +10,6 @@ namespace WebApiSample.DAL
         Task<Product?> GetProductByIdAsync(int id, CancellationToken cancellationToken);
         Task AddProductAsync(Product product, CancellationToken cancellationToken);
         Task UpdateProductAsync(Product product);
-        Task DeleteProductAsync(int id);
+        Task DeleteProductAsync(Product product, CancellationToken cancellationToken);
     }
 }
