@@ -1,57 +1,36 @@
 ﻿using AutoMapper;
 using FluentAssertions;
+using MediatR;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApiSample.BLL;
+using WebApiSample.BLL.Products.Commands.Create;
+using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.Mappings;
 using WebApiSample.Models;
 
-namespace WebApiSample.Test.BLL
+namespace WebApiSample.Test.BLL.Products
 {
-    public class ProductServiceTests
+    public class UpdateProductTests
     {
         private readonly Mock<IProductRepository> _productRepositoryMock;
-        private readonly IProductService _productService;
         private readonly IMapper _mapper;
+        private readonly UpdateProductDescriptionCommandHandler _updateProductDescriptionHandler;
 
-        public ProductServiceTests()
+        public UpdateProductTests()
         {
-
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<AutoMapperProfile>(); // Assuming this is your mapping profile
+                cfg.AddProfile<AutoMapperProfile>();
             });
             _mapper = config.CreateMapper();
 
             _productRepositoryMock = new Mock<IProductRepository>();
-            _productService = new ProductService(_productRepositoryMock.Object, _mapper);
-        }
-
-        [Fact]
-        public async Task GetAllProducts_ShouldReturnListOfProducts_WhenProductsExist()
-        {
-            // Arrange
-            var products = new List<Product>
-            {
-                new Product { Id = 1, Name = "Product 1", Price = 10, Description = "Description 1", ImgUri = "https://media.gettyimages.com/id/1327018451/photo/washington-dc-international-film-and-television-star-and-the-worlds-most-famous-amphibian.jpg?s=612x612&w=gi&k=20&c=PWkRIp_5HcpQ4WetKzlybMTvdfKyIfsD6HL3GF4S3dI=" },
-                new Product { Id = 2, Name = "Product 2", Price = 20, Description = "Description 2", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"}
-            };
-
-            _productRepositoryMock
-                .Setup(repo => repo.GetProductsAsync(default))
-                .ReturnsAsync(products);
-
-            // Act
-            var result = await _productService.GetProductsAsync(default);
-
-            // Assert
-            result.Should().HaveCount(2);
-            result.Should().Contain(p => p.Name == "Product 1");
+            _updateProductDescriptionHandler = new UpdateProductDescriptionCommandHandler(_productRepositoryMock.Object, _mapper);
         }
 
         [Fact]
@@ -63,11 +42,10 @@ namespace WebApiSample.Test.BLL
                 .Setup(repo => repo.GetProductByIdAsync(It.IsAny<int>(), default))
                 .ReturnsAsync(product);
 
-            var updateDto = new UpdateProductDescriptionDto { Id = 1 ,Description = "New Description" };
+            var updateCommand = new UpdateProductDescriptionCommand { Id = 1, Description = "New Description" };
 
             // Act
-            await _productService.UpdateProductDescriptionAsync(updateDto);
-
+            await _updateProductDescriptionHandler.Handle(updateCommand, default);
 
             // Assert
             _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.Description == "New Description")), Times.Once);
@@ -76,5 +54,4 @@ namespace WebApiSample.Test.BLL
             _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.ImgUri == "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s")), Times.Once);
         }
     }
-
 }
