@@ -63,7 +63,6 @@ namespace WebApiSample
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<GetAllProductsQuery>());
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
 
             var app = builder.Build();
             
