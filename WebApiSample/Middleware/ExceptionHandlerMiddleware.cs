@@ -13,7 +13,6 @@ namespace WebApiSample.Middleware
             _next = next;
         }
 
-
         public async Task Invoke(HttpContext context)
         {
             try
@@ -22,7 +21,6 @@ namespace WebApiSample.Middleware
             }
             catch (Exception exception)
             {
-
                 await ConvertException(context, exception);
             }
         }
@@ -37,14 +35,15 @@ namespace WebApiSample.Middleware
 
             switch (exception)
             {
-                // TODO:
-                //case ModelValidationException validationException:
-                //    httpsStatusCode = HttpStatusCode.BadRequest;
-                //    result = JsonConvert.SerializeObject(validationException.ValdationErrors);
-                //    break;
+                case ModelValidationException validationException:
+                    httpsStatusCode = HttpStatusCode.BadRequest;
+                    result = JsonConvert.SerializeObject(validationException.ValdationErrors);
+                    break;
+
                 case ModelNotFoundException notFoundException:
                     httpsStatusCode = HttpStatusCode.NotFound;
                     break;
+
                 default:
                     httpsStatusCode = HttpStatusCode.BadRequest;
                     break;
@@ -55,7 +54,6 @@ namespace WebApiSample.Middleware
             if (result == string.Empty)
             {
                 result = JsonConvert.SerializeObject(new { error = exception.Message });
-
             }
 
             return context.Response.WriteAsync(result);

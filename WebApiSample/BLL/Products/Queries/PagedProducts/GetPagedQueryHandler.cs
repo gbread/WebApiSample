@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using WebApiSample.BLL.Exceptions;
 using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.DAL;
 using WebApiSample.Models;
@@ -20,6 +21,13 @@ namespace WebApiSample.BLL.Products.Queries.PagedProducts
 
         public async Task<GetPagedProductsResponse> Handle(GetPagedProductsQuery request, CancellationToken cancellationToken)
         {
+            var getPagedProductsValidator = new GetPagedProductsValidator();
+            var validationResult = await getPagedProductsValidator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ModelValidationException(validationResult);
+            }
 
             var products = await _productRepository.GetProductsAsync(request.Page, request.PageSize, cancellationToken);
 
