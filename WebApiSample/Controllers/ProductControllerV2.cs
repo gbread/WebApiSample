@@ -31,11 +31,6 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid pagination parameters")]
         public async Task<ActionResult<GetPagedProductsResponse>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            if (page <= 0 || pageSize <= 0)
-            {
-                return BadRequest("Page and PageSize must be greater than 0.");
-            }
-            
             var pagedResultQuery = new GetPagedProductsQuery { Page = page, PageSize = pageSize };
 
             return await _mediator.Send(pagedResultQuery, HttpContext.RequestAborted);
