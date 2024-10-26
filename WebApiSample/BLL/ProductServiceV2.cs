@@ -18,7 +18,7 @@ namespace WebApiSample.BLL
 
         public async Task<IPagedList<ProductDto>> GetProductsAsync(int page, int pageSize)
         {
-            var products = await _productRepository.GetProductsAsync(page, pageSize);
+            var products = await _productRepository.GetProductsAsync(page, pageSize, default);
 
             var productDtos = products
                 .Select(product => _mapper.Map<ProductDto>(product))

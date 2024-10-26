@@ -3,6 +3,8 @@ using WebApiSample.BLL;
 using WebApiSample.Controllers.DTOs;
 using WebApiSample.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using MediatR;
+using WebApiSample.BLL.Products.Queries.PagedProducts;
 
 namespace WebApiSample.Controllers
 {
@@ -11,11 +13,11 @@ namespace WebApiSample.Controllers
     [ApiController]
     public class Product2Controller : Controller
     {
-        private readonly IProductServiceV2 _productService;
+        private readonly IMediator _mediator;
 
-        public Product2Controller(IProductServiceV2 productService)
+        public Product2Controller(IMediator mediator)
         {
-            _productService = productService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -27,23 +29,16 @@ namespace WebApiSample.Controllers
         [HttpGet]
         [SwaggerResponse(StatusCodes.Status200OK, "Returns paginated products", typeof(PagedListDto<ProductDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid pagination parameters")]
-        public async Task<ActionResult<PagedListDto<ProductDto>>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<GetPagedProductsResponse>> GetProducts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             if (page <= 0 || pageSize <= 0)
             {
                 return BadRequest("Page and PageSize must be greater than 0.");
             }
+            
+            var pagedResultQuery = new GetPagedProductsQuery { Page = page, PageSize = pageSize };
 
-            var products = await _productService.GetProductsAsync(page, pageSize);
-
-            var pagedResult = new PagedListDto<ProductDto>(
-                products,
-                products.TotalItemCount,
-                products.PageNumber,
-                products.PageSize
-            );
-
-            return Ok(pagedResult);
+            return await _mediator.Send(pagedResultQuery, HttpContext.RequestAborted);
         }
     }
 }

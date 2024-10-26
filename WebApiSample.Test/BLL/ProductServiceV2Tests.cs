@@ -47,7 +47,7 @@ namespace WebApiSample.Test.BLL
             var pagedList = new PagedList<Product>(products, 2, 2);
 
             _productRepositoryMock
-                .Setup(repo => repo.GetProductsAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(repo => repo.GetProductsAsync(It.IsAny<int>(), It.IsAny<int>(), default))
                 .ReturnsAsync(pagedList);
 
             // Act
