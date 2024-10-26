@@ -9,6 +9,7 @@ This API provides functionality to manage products in an e-commerce platform, fo
 - **Partial Updates**: Supports updating only specific product fields (e.g., product description).
 - **AutoMapper Integration**: Used to map between domain models and DTOs.
 - **Clean Architecture**: Separation of concerns between Controller, Service, and Repository layers.
+- **Mediator Pattern**: Used the Mediator pattern  (via [MediatR](https://github.com/jbogard/MediatR)) to manage interactions within the .NET controllers. This pattern keeps the controllers lightweight by delegating business logic to handlers, which improves code organization and testability.
 
 ### Technologies:
 - ASP.NET Core
