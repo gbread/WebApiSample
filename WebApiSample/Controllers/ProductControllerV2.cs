@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace WebApiSample.Controllers
 {
     [ApiVersion("2.0")]
-    [Route("api/v2/Product")]
+    [Route("api/v{version:apiVersion}/Product")]
     [ApiController]
     public class Product2Controller : Controller
     {
