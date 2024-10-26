@@ -14,11 +14,9 @@ namespace WebApiSample.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IProductService _productService;
 
-        public ProductController(IProductService productService, IMediator mediator)
+        public ProductController(IMediator mediator)
         {
-            _productService = productService;
             _mediator = mediator;
         }
 

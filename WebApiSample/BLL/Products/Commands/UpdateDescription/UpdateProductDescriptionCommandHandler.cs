@@ -12,10 +12,10 @@ namespace WebApiSample.BLL.Products.Commands.Create
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public UpdateProductDescriptionCommandHandler(IMapper mapper, IProductRepository productRepository)
+        public UpdateProductDescriptionCommandHandler(IProductRepository productRepository, IMapper mapper)
         {
-            _mapper = mapper;
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         public async Task Handle(UpdateProductDescriptionCommand command, CancellationToken cancellationToken)

@@ -47,7 +47,7 @@ namespace WebApiSample.Tests
             var product = new Product { Id = 3, Name = "Product 3", Price = 30, ImgUri = "https://example.com/image3.jpg" };
 
             // Act
-            await _productRepository.AddProductAsync(product);
+            await _productRepository.AddProductAsync(product, default);
             var result = await _productRepository.GetProductByIdAsync(3, default);
 
             // Assert
@@ -63,7 +63,7 @@ namespace WebApiSample.Tests
             var product = new Product { Id = 4, Name = "Product 4", Price = 40, ImgUri = null }; // ImgUri is missing
 
             // Act & Assert
-            Func<Task> action = async () => await _productRepository.AddProductAsync(product);
+            Func<Task> action = async () => await _productRepository.AddProductAsync(product, default);
             await action.Should().ThrowAsync<Exception>();
         }
 
@@ -76,7 +76,7 @@ namespace WebApiSample.Tests
             await _context.SaveChangesAsync();
 
             // Act
-            await _productRepository.DeleteProductAsync(5);
+            await _productRepository.DeleteProductAsync(product, default);
             var result = await _productRepository.GetProductByIdAsync(5, default);
 
             // Assert
