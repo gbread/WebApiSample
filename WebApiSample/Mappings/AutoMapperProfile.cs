@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.Models;
 
 namespace WebApiSample.Mappings
@@ -9,6 +10,7 @@ namespace WebApiSample.Mappings
         {
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDescriptionDto>().ReverseMap();
+            CreateMap<Product, CreateProductCommand>().ReverseMap();
         }
     }
 }

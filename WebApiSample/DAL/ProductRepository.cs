@@ -30,7 +30,7 @@ namespace WebApiSample.DAL
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task AddProductAsync(Product product)
+        public async Task AddProductAsync(Product product, CancellationToken cancellationToken)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
