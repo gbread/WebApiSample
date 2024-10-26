@@ -4,6 +4,7 @@ using WebApiSample.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using MediatR;
 using WebApiSample.BLL.Products.Queries;
+using WebApiSample.BLL.Products.Commands.Create;
 
 namespace WebApiSample.Controllers
 {
@@ -54,11 +55,9 @@ namespace WebApiSample.Controllers
         [HttpPost]
         [SwaggerResponse(StatusCodes.Status201Created, "Product successfully created", typeof(ProductDto))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input")]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
+        public async Task<ActionResult<CreateProductResponse>> CreateProduct([FromBody] CreateProductCommand createProductCommand)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            await _productService.AddProductAsync(productDto);
-            return CreatedAtAction(nameof(GetProduct), new { id = productDto.Id }, productDto);
+            return await _mediator.Send(createProductCommand);
         }
 
         /// <summary>

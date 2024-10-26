@@ -30,7 +30,7 @@ namespace WebApiSample.BLL
         public async Task AddProductAsync(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
-            await _productRepository.AddProductAsync(product);
+            await _productRepository.AddProductAsync(product, default);
         }
 
         public async Task UpdateProductAsync(ProductDto productDto)
