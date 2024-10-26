@@ -11,6 +11,7 @@ namespace WebApiSample.Mappings
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDescriptionDto>().ReverseMap();
             CreateMap<Product, CreateProductCommand>().ReverseMap();
+            CreateMap<Product, UpdateProductDescriptionCommand>().ReverseMap();
         }
     }
 }

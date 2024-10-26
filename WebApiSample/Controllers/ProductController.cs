@@ -66,23 +66,14 @@ namespace WebApiSample.Controllers
         /// <param name="id">The ID of the product to update.</param>
         /// <param name="productDescriptionDto">The updated product description DTO.</param>
         /// <returns>No content if update is successful.</returns>
-        [HttpPut("{id}/description")]
+        [HttpPut("description")]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Product description successfully updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input or product ID mismatch")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Product not found")]
-        public async Task<IActionResult> UpdateProductDescription(int id, [FromBody] UpdateProductDescriptionDto productDescriptionDto)
+        public async Task<IActionResult> UpdateProductDescription([FromBody] UpdateProductDescriptionCommand updateProductDescriptionCommand)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != productDescriptionDto.Id) return BadRequest("Product ID mismatch");
-            try
-            {
-                await _productService.UpdateProductDescriptionAsync(productDescriptionDto);
-                return NoContent();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(updateProductDescriptionCommand);
+            return NoContent();
         }
 
         /// <summary>
