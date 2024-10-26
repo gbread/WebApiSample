@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
 using MediatR;
+using WebApiSample.BLL.Exceptions;
 using WebApiSample.DAL;
 using WebApiSample.Models;
 
@@ -22,7 +23,15 @@ namespace WebApiSample.BLL.Products.Queries
         public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetProductByIdAsync(request.Id, cancellationToken);
-            return _mapper.Map<ProductDto>(product);
+
+            if (product == null)
+            {
+                throw new ModelNotFoundException(nameof(product), request.Id);
+            }
+
+            var productDto = _mapper.Map<ProductDto>(product);
+
+            return productDto;
         }
     }
 }

@@ -30,8 +30,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status500InternalServerError, "Internal server error")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-            var products = await _mediator.Send(new GetAllProductsQuery(), HttpContext.RequestAborted);
-            return Ok(products);
+            return await _mediator.Send(new GetAllProductsQuery(), HttpContext.RequestAborted);
         }
 
         /// <summary>
@@ -44,9 +43,7 @@ namespace WebApiSample.Controllers
         [SwaggerResponse(StatusCodes.Status404NotFound, "Product not found")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
-            var product = await _mediator.Send(new GetProductQuery(id));
-            if (product == null) return NotFound();
-            return Ok(product);
+            return await _mediator.Send(new GetProductQuery(id));
         }
 
         /// <summary>

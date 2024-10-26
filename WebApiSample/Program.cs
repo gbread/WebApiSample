@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using WebApiSample.BLL;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.Mappings;
+using WebApiSample.Middleware;
 
 namespace WebApiSample
 {
@@ -65,6 +67,8 @@ namespace WebApiSample
             builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
 
             var app = builder.Build();
+            
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
