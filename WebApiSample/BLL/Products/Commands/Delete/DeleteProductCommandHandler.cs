@@ -3,6 +3,7 @@ using MediatR;
 using WebApiSample.BLL.Exceptions;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
+using WebApiSample.DAL.DTOs;
 using WebApiSample.Models;
 
 namespace WebApiSample.BLL.Products.Commands.Create
@@ -23,7 +24,7 @@ namespace WebApiSample.BLL.Products.Commands.Create
             var product = await _productRepository.GetProductByIdAsync(command.Id, cancellationToken);
             if (product == null)
             {
-                throw new ModelNotFoundException(nameof(Product), command.Id);
+                throw new ModelNotFoundException(nameof(ProductEntity), command.Id);
             }
 
             await _productRepository.DeleteProductAsync(product, cancellationToken);
