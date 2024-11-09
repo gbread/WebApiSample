@@ -3,6 +3,7 @@ using MediatR;
 using WebApiSample.BLL.Exceptions;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
+using WebApiSample.DAL.DTOs;
 using WebApiSample.Models;
 
 namespace WebApiSample.BLL.Products.Commands.Create
@@ -20,10 +21,10 @@ namespace WebApiSample.BLL.Products.Commands.Create
 
         public async Task<CreateProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = _mapper.Map<Product>(request);
+            var product = _mapper.Map<ProductEntity>(request);
             await _productRepository.AddProductAsync(product, cancellationToken);
             var newProduct = _mapper.Map<ProductDto>(product);
-            
+
             var result = new CreateProductResponse
             {
                 productDto = newProduct,

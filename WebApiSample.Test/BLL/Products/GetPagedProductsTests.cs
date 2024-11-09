@@ -10,6 +10,7 @@ using WebApiSample.BLL.Exceptions;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.BLL.Products.Queries.PagedProducts;
 using WebApiSample.DAL;
+using WebApiSample.DAL.DTOs;
 using WebApiSample.Mappings;
 using WebApiSample.Models;
 using X.PagedList;
@@ -38,11 +39,11 @@ namespace WebApiSample.Test.BLL.Products
         public async Task GetPagedProducts_ShouldReturnListOfProducts_WhenProductsDoesntExist()
         {
             // Arrange
-            var products = new List<Product>
+            var products = new List<ProductEntity>
             {
             };
 
-            var pagedList = new PagedList<Product>(products, 1, 2);
+            var pagedList = new PagedList<ProductEntity>(products, 1, 2);
 
             _productRepositoryMock
                 .Setup(repo => repo.GetProductsAsync(It.IsAny<int>(), It.IsAny<int>(), default))
@@ -62,15 +63,15 @@ namespace WebApiSample.Test.BLL.Products
         public async Task GetPagedProducts_ShouldReturnFirstPage_WhenProductsExist()
         {
             // Arrange
-            var products = new List<Product>
+            var products = new List<ProductEntity>
             {
-                new Product { Id = 1, Name = "Product 1", Price = 10, Description = "Description 1", ImgUri = "https://media.gettyimages.com/id/1327018451/photo/washington-dc-international-film-and-television-star-and-the-worlds-most-famous-amphibian.jpg?s=612x612&w=gi&k=20&c=PWkRIp_5HcpQ4WetKzlybMTvdfKyIfsD6HL3GF4S3dI=" },
-                new Product { Id = 2, Name = "Product 2", Price = 20, Description = "Description 2", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
-                new Product { Id = 3, Name = "Product 3", Price = 30, Description = "Description 3", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
-                new Product { Id = 4, Name = "Product 4", Price = 40, Description = "Description 4", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 1, Name = "Product 1", Price = 10, Description = "Description 1", ImgUri = "https://media.gettyimages.com/id/1327018451/photo/washington-dc-international-film-and-television-star-and-the-worlds-most-famous-amphibian.jpg?s=612x612&w=gi&k=20&c=PWkRIp_5HcpQ4WetKzlybMTvdfKyIfsD6HL3GF4S3dI=" },
+                new ProductEntity { Id = 2, Name = "Product 2", Price = 20, Description = "Description 2", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 3, Name = "Product 3", Price = 30, Description = "Description 3", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 4, Name = "Product 4", Price = 40, Description = "Description 4", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
             };
 
-            var pagedList = new PagedList<Product>(products, 1, 2);
+            var pagedList = new PagedList<ProductEntity>(products, 1, 2);
 
             _productRepositoryMock
                 .Setup(repo => repo.GetProductsAsync(It.Is<int>(x => x == 1), It.Is<int>(x => x == 2), default))
@@ -89,15 +90,15 @@ namespace WebApiSample.Test.BLL.Products
         public async Task GetPagedProducts_ShouldReturnSecondPage_WhenProductsExist()
         {
             // Arrange
-            var products = new List<Product>
+            var products = new List<ProductEntity>
             {
-                new Product { Id = 1, Name = "Product 1", Price = 10, Description = "Description 1", ImgUri = "https://media.gettyimages.com/id/1327018451/photo/washington-dc-international-film-and-television-star-and-the-worlds-most-famous-amphibian.jpg?s=612x612&w=gi&k=20&c=PWkRIp_5HcpQ4WetKzlybMTvdfKyIfsD6HL3GF4S3dI=" },
-                new Product { Id = 2, Name = "Product 2", Price = 20, Description = "Description 2", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
-                new Product { Id = 3, Name = "Product 3", Price = 30, Description = "Description 3", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
-                new Product { Id = 4, Name = "Product 4", Price = 40, Description = "Description 4", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 1, Name = "Product 1", Price = 10, Description = "Description 1", ImgUri = "https://media.gettyimages.com/id/1327018451/photo/washington-dc-international-film-and-television-star-and-the-worlds-most-famous-amphibian.jpg?s=612x612&w=gi&k=20&c=PWkRIp_5HcpQ4WetKzlybMTvdfKyIfsD6HL3GF4S3dI=" },
+                new ProductEntity { Id = 2, Name = "Product 2", Price = 20, Description = "Description 2", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 3, Name = "Product 3", Price = 30, Description = "Description 3", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
+                new ProductEntity { Id = 4, Name = "Product 4", Price = 40, Description = "Description 4", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRALVqKDzVCPZ3mfStfyt6Ijexu3BzP8KWLeA&s"},
             };
 
-            var pagedList = new PagedList<Product>(products, 2, 2);
+            var pagedList = new PagedList<ProductEntity>(products, 2, 2);
 
             _productRepositoryMock
                 .Setup(repo => repo.GetProductsAsync(It.Is<int>(x => x == 2), It.Is<int>(x => x == 2), default))
