@@ -64,7 +64,7 @@ namespace WebApiSample.Controllers
         /// <param name="id">The ID of the product to update.</param>
         /// <param name="productDescriptionDto">The updated product description DTO.</param>
         /// <returns>No content if update is successful.</returns>
-        [HttpPut("description")]
+        [HttpPatch()]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Product description successfully updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid input or product ID mismatch")]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Product not found")]

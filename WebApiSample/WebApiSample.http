@@ -28,7 +28,7 @@ Accept: application/json
 
 ###
 
-PUT {{WebApiSample_HostAddress}}/api/Product/description
+PATCH {{WebApiSample_HostAddress}}/api/Product
 Content-Type: application/json
 Accept: application/json
 
