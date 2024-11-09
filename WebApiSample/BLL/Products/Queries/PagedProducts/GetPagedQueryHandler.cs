@@ -31,19 +31,11 @@ namespace WebApiSample.BLL.Products.Queries.PagedProducts
 
             var products = await _productRepository.GetProductsAsync(request.Page, request.PageSize, cancellationToken);
 
-            var productDtos = products
-                .Select(product => _mapper.Map<ProductDto>(product))
-                .ToList();
+            var productDtos = _mapper.Map<IPagedList<ProductDto>>(products);
 
-            return new GetPagedProductsResponse
-            {
-                PagedProducts = new Controllers.DTOs.PagedListDto<ProductDto> { 
-                    Items = productDtos,
-                    PageNumber = products.PageNumber,
-                    PageSize = products.PageSize,
-                    TotalCount = products.TotalItemCount
-                }
-            };
+            var response = _mapper.Map<GetPagedProductsResponse>(productDtos);
+
+            return response;
         }
     }
 }
