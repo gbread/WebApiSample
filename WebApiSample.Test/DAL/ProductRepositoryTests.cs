@@ -6,11 +6,15 @@ using WebApiSample.DAL;
 using WebApiSample.Models;
 using Xunit;
 using FluentAssertions;
+using WebApiSample.DAL.DTOs;
+using AutoMapper;
+using WebApiSample.Mappings;
 
 namespace WebApiSample.Tests
 {
     public class ProductRepositoryTests
     {
+        private readonly IMapper _mapper;
         private readonly ProductRepository _productRepository;
         private readonly AppDbContext _context;
 
@@ -20,7 +24,14 @@ namespace WebApiSample.Tests
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
             _context = new AppDbContext(options);
-            _productRepository = new ProductRepository(_context);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
+            _mapper = config.CreateMapper();
+
+            _productRepository = new ProductRepository(_context, _mapper);
         }
 
         [Fact]
@@ -44,7 +55,7 @@ namespace WebApiSample.Tests
         public async Task AddProductAsync_ShouldAddProduct_WhenImgUriIsValid()
         {
             // Arrange
-            var product = new Product { Id = 3, Name = "Product 3", Price = 30, ImgUri = "https://example.com/image3.jpg" };
+            var product = new ProductEntity { Id = 3, Name = "Product 3", Price = 30, ImgUri = "https://example.com/image3.jpg" };
 
             // Act
             await _productRepository.AddProductAsync(product, default);
@@ -60,7 +71,7 @@ namespace WebApiSample.Tests
         public async Task AddProductAsync_ShouldThrowException_WhenImgUriIsMissing()
         {
             // Arrange
-            var product = new Product { Id = 4, Name = "Product 4", Price = 40, ImgUri = null }; // ImgUri is missing
+            var product = new ProductEntity { Id = 4, Name = "Product 4", Price = 40, ImgUri = null }; // ImgUri is missing
 
             // Act & Assert
             Func<Task> action = async () => await _productRepository.AddProductAsync(product, default);
@@ -75,8 +86,12 @@ namespace WebApiSample.Tests
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
+            _context.ChangeTracker.Clear();
+
+            //map
+            var productEntity = _mapper.Map<ProductEntity>(product);
             // Act
-            await _productRepository.DeleteProductAsync(product, default);
+            await _productRepository.DeleteProductAsync(productEntity, default);
             var result = await _productRepository.GetProductByIdAsync(5, default);
 
             // Assert

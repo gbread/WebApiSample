@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
+using WebApiSample.DAL.DTOs;
 using WebApiSample.Mappings;
 using WebApiSample.Models;
 
@@ -37,7 +38,7 @@ namespace WebApiSample.Test.BLL.Products
         public async Task UpdateProductDescription_ShouldUpdateDescription_WhenProductExists()
         {
             // Arrange
-            var product = new Product { Id = 1, Name = "Product 1", Price = 5, Description = "Old Description", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s" };
+            var product = new ProductEntity { Id = 1, Name = "Product 1", Price = 5, Description = "Old Description", ImgUri = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s" };
             _productRepositoryMock
                 .Setup(repo => repo.GetProductByIdAsync(It.IsAny<int>(), default))
                 .ReturnsAsync(product);
@@ -48,10 +49,10 @@ namespace WebApiSample.Test.BLL.Products
             await _updateProductDescriptionHandler.Handle(updateCommand, default);
 
             // Assert
-            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.Description == "New Description"), default), Times.Once);
-            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.Id == 1), default), Times.Once);
-            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.Price == 5), default), Times.Once);
-            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<Product>(p => p.ImgUri == "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s"), default), Times.Once);
+            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<ProductEntity>(p => p.Description == "New Description"), default), Times.Once);
+            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<ProductEntity>(p => p.Id == 1), default), Times.Once);
+            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<ProductEntity>(p => p.Price == 5), default), Times.Once);
+            _productRepositoryMock.Verify(repo => repo.UpdateProductAsync(It.Is<ProductEntity>(p => p.ImgUri == "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgzluwUTsgbfDWA1nc8Go8A2nQJvq-U9UlQ&s"), default), Times.Once);
         }
     }
 }
