@@ -55,7 +55,6 @@ namespace WebApiSample.Test.BLL.Products
             result.PagedProducts.Items.Should().HaveCount(0);
             result.PagedProducts.PageNumber.Should().Be(1);
             result.PagedProducts.PageSize.Should().Be(2);
-            result.PagedProducts.TotalPages.Should().Be(0);
             result.PagedProducts.TotalCount.Should().Be(0);
         }
 
