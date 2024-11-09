@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using WebApiSample.BLL.Products.Commands.Create;
+using WebApiSample.BLL.Products.Queries.PagedProducts;
+using WebApiSample.Controllers.DTOs;
 using WebApiSample.DAL.DTOs;
 using WebApiSample.Models;
 using X.PagedList;
@@ -15,16 +17,15 @@ namespace WebApiSample.Mappings
             CreateMap<ProductEntity, UpdateProductDescriptionDto>().ReverseMap();
             CreateMap<ProductEntity, CreateProductCommand>().ReverseMap();
             CreateMap<ProductEntity, UpdateProductDescriptionCommand>().ReverseMap();
-            CreateMap<IPagedList<Product>, IPagedList<ProductEntity>>()
-                       .ConvertUsing((src, dest, context) =>
-                       {
-                           var mappedItems = context.Mapper.Map<IEnumerable<ProductEntity>>(src);
-                           return new StaticPagedList<ProductEntity>(
-                               mappedItems,
-                               src.PageNumber,
-                               src.PageSize,
-                               src.TotalItemCount);
-                       });
+
+            CreateMap<IPagedList<ProductDto>, GetPagedProductsResponse>()
+                .ForMember(dest => dest.PagedProducts, opt => opt.MapFrom(src => src));
+
+            CreateMap(typeof(IPagedList<>), typeof(IPagedList<>))
+                .ConvertUsing(typeof(PagedListConverter<,>));
+
+            CreateMap(typeof(IPagedList<>), typeof(PagedListDto<>))
+                .ConvertUsing(typeof(PagedListDtoConverter<,>));
         }
     }
 }
