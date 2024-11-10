@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using WebApiSample.BLL.Exceptions;
-using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.DAL.DTOs;
-using WebApiSample.Models;
 
 namespace WebApiSample.BLL.Products.Commands.Create
 {

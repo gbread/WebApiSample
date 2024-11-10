@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using WebApiSample.BLL.Exceptions;
-using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.DAL;
 using WebApiSample.Models;
 using X.PagedList;

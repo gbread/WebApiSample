@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using MediatR;
 using WebApiSample.BLL.Exceptions;
 using WebApiSample.DAL;

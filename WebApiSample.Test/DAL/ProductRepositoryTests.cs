@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using WebApiSample.DAL;
-using WebApiSample.Models;
-using Xunit;
-using FluentAssertions;
 using WebApiSample.DAL.DTOs;
-using AutoMapper;
 using WebApiSample.Mappings;
+using WebApiSample.Models;
 
 namespace WebApiSample.Tests
 {

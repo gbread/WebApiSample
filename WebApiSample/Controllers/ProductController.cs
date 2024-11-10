@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApiSample.BLL;
-using WebApiSample.Models;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using MediatR;
-using WebApiSample.BLL.Products.Queries;
 using WebApiSample.BLL.Products.Commands.Create;
+using WebApiSample.BLL.Products.Queries;
+using WebApiSample.Models;
 
 namespace WebApiSample.Controllers
 {

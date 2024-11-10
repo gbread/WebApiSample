@@ -4,7 +4,6 @@ using WebApiSample.DAL.DTOs;
 using WebApiSample.Models;
 using X.PagedList;
 using X.PagedList.EF;
-using X.PagedList.Extensions;
 
 namespace WebApiSample.DAL
 {

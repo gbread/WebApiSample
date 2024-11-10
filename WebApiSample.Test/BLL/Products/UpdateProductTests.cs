@@ -1,18 +1,9 @@
 ﻿using AutoMapper;
-using FluentAssertions;
-using MediatR;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApiSample.BLL.Products.Commands.Create;
-using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.DAL.DTOs;
 using WebApiSample.Mappings;
-using WebApiSample.Models;
 
 namespace WebApiSample.Test.BLL.Products
 {
