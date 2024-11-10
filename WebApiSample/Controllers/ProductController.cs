@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using WebApiSample.BLL.DTOs;
 using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.BLL.Products.Queries;
-using WebApiSample.Models;
 
 namespace WebApiSample.Controllers
 {

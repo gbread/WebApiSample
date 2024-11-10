@@ -1,4 +1,4 @@
-﻿using WebApiSample.Models;
+﻿using WebApiSample.BLL.DTOs;
 
 namespace WebApiSample.BLL.Products.Commands.Create
 {

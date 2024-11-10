@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using WebApiSample.BLL.DTOs;
 using WebApiSample.BLL.Exceptions;
 using WebApiSample.DAL;
-using WebApiSample.Models;
 using X.PagedList;
 
 namespace WebApiSample.BLL.Products.Queries.PagedProducts
