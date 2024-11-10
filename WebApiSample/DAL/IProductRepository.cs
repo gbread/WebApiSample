@@ -1,5 +1,4 @@
 ﻿using WebApiSample.DAL.DTOs;
-using WebApiSample.Models;
 using X.PagedList;
 
 namespace WebApiSample.DAL

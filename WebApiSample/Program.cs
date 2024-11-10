@@ -1,13 +1,7 @@
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
-using WebApiSample.BLL;
 using WebApiSample.BLL.Products.Queries;
 using WebApiSample.DAL;
 using WebApiSample.Mappings;
@@ -38,7 +32,7 @@ namespace WebApiSample
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API V1", Version = "v1" });
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "API V2", Version = "v2" });
-                
+
                 c.EnableAnnotations();
 
                 // Use versioning to filter endpoints
@@ -53,7 +47,6 @@ namespace WebApiSample
 
                     return versions?.Any(v => $"v{v.MajorVersion}" == version) ?? false;
                 });
-
             });
 
             services.AddDbContext<AppDbContext>(options =>
@@ -65,7 +58,7 @@ namespace WebApiSample
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             var app = builder.Build();
-            
+
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
@@ -82,7 +75,6 @@ namespace WebApiSample
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApiSample.BLL.Exceptions;
-using WebApiSample.BLL.Products.Queries;
 using WebApiSample.BLL.Products.Queries.PagedProducts;
 using WebApiSample.DAL;
 using WebApiSample.DAL.DTOs;
 using WebApiSample.Mappings;
-using WebApiSample.Models;
 using X.PagedList;
 
 namespace WebApiSample.Test.BLL.Products

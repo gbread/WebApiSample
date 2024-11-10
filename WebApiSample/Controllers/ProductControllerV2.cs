@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApiSample.BLL;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using WebApiSample.BLL.Products.Queries.PagedProducts;
 using WebApiSample.Controllers.DTOs;
 using WebApiSample.Models;
-using Swashbuckle.AspNetCore.Annotations;
-using MediatR;
-using WebApiSample.BLL.Products.Queries.PagedProducts;
 
 namespace WebApiSample.Controllers
 {

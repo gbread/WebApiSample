@@ -1,6 +1,4 @@
-﻿using X.PagedList;
-
-namespace WebApiSample.Controllers.DTOs
+﻿namespace WebApiSample.Controllers.DTOs
 {
     public class PagedListDto<T>
     {
