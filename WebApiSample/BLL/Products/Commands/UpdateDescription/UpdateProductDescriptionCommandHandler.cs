@@ -2,7 +2,7 @@
 using MediatR;
 using WebApiSample.BLL.Exceptions;
 using WebApiSample.DAL;
-using WebApiSample.Models;
+using WebApiSample.DAL.Models;
 
 namespace WebApiSample.BLL.Products.Commands.Create
 {
