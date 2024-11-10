@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApiSample.Models;
+using WebApiSample.DAL.Models;
 
 namespace WebApiSample.DAL
 {

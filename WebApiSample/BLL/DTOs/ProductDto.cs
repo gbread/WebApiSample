@@ -1,4 +1,4 @@
-﻿namespace WebApiSample.Models
+﻿namespace WebApiSample.BLL.DTOs
 {
     public class ProductDto
     {

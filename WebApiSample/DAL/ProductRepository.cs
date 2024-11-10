@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WebApiSample.DAL.DTOs;
-using WebApiSample.Models;
+using WebApiSample.DAL.Models;
 using X.PagedList;
 using X.PagedList.EF;
 

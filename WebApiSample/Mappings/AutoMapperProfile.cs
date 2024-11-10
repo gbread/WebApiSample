@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using WebApiSample.BLL.DTOs;
 using WebApiSample.BLL.Products.Commands.Create;
 using WebApiSample.BLL.Products.Queries.PagedProducts;
 using WebApiSample.Controllers.DTOs;
 using WebApiSample.DAL.DTOs;
-using WebApiSample.Models;
+using WebApiSample.DAL.Models;
 using X.PagedList;
 
 namespace WebApiSample.Mappings
