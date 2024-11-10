@@ -1,16 +1,17 @@
 @WebApiSample_HostAddress = http://localhost:5170
+@ProductResourceName = Product
 
-GET {{WebApiSample_HostAddress}}/api/Product
+GET {{WebApiSample_HostAddress}}/api/{{ProductResourceName}}
 Accept: application/json
 
 ###
 
-GET {{WebApiSample_HostAddress}}/api/v2/Product?page=1&pageSize=2
+GET {{WebApiSample_HostAddress}}/api/v2/{{ProductResourceName}}?page=1&pageSize=2
 Accept: application/json
 
 ###
 
-POST {{WebApiSample_HostAddress}}/api/Product
+POST {{WebApiSample_HostAddress}}/api/{{ProductResourceName}}
 Content-Type: application/json
 Accept: application/json
 
@@ -23,12 +24,12 @@ Accept: application/json
 
 ###
 
-DELETE {{WebApiSample_HostAddress}}/api/Product/3
+DELETE {{WebApiSample_HostAddress}}/api/{{ProductResourceName}}/3
 Accept: application/json
 
 ###
 
-PATCH {{WebApiSample_HostAddress}}/api/Product
+PATCH {{WebApiSample_HostAddress}}/api/{{ProductResourceName}}
 Content-Type: application/json
 Accept: application/json
 
