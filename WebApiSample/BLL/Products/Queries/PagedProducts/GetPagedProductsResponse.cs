@@ -1,5 +1,5 @@
-﻿using WebApiSample.Controllers.DTOs;
-using WebApiSample.Models;
+﻿using WebApiSample.BLL.DTOs;
+using WebApiSample.Controllers.DTOs;
 
 namespace WebApiSample.BLL.Products.Queries.PagedProducts
 {

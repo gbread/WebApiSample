@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using WebApiSample.BLL.DTOs;
 using WebApiSample.DAL;
 using WebApiSample.DAL.DTOs;
-using WebApiSample.Models;
 
 namespace WebApiSample.BLL.Products.Commands.Create
 {
